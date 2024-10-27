@@ -14,9 +14,9 @@
 <header class="header" id="header">
 <div class="container">
 <div class="profile-picture"></div>
-<h1 class="site-title" id="site-title"><a href="/">Fuzzing the Web</a></h1>
-<span class="site-subtitle" id="site-subtitle">A blog by Javi Manzano</span>
-<span class="site-illustration" id="site-subtitle">Illustration by <a href="https://generofresco.wordpress.com/" target="_blank">Raquel K Agüesome</a></span>
+<h1 class="site-title"><a href="/">Fuzzing the Web</a></h1>
+<h2 class="site-subtitle">Javi Manzano's blog</h2>
+<h3 class="site-illustration">Illustration by <a href="https://generofresco.wordpress.com/" target="_blank">Raquel K Agüesome</a></h3>
 </div>
 <nav class="navigation">
 <ul class="navigation__list">
@@ -27,103 +27,84 @@
 </header>
 <div class="container" id="main" role="main"><article class="blog-post blog-post--english">
 <div class="blog-post__header">
-<h1 class="blog-post__title"><a href="2018-03-08-i-ve-built-a-thing.html">I've built a thing</a></h1>
-<span class="blog-post__date">Thursday, 08 March 2018</span>
+<h1 class="blog-post__title"><a href="2014-05-13-iterm2-word-jumping.html">iTerm2 word jumping</a></h1>
+<span class="blog-post__date">Tuesday, 13 May 2014</span>
 </div>
-<div class="blog-post__content"><p>Date: 2018-03-08</p>
-<p>I like reading comics and for the last couple of years I've been reading and collecting a bunch of them – can't wait for the next time I change flats, yay. Because the idea of moving flats terrorises me, I've often thought about moving to digital and stop buying paper comics. But I can't, I really like to feel the physical books on my hands. I suspect that in a few years, when big sized tablets such as the iPad Pro 12" become affordable, I might make a full move to digital. But until then, it's all about paper.</p>
-<p>Something I've realised though is that once I own the physical comic book and I've read it, I don't really mind too much re-reading or looking at it digitally. So a few months ago I came with the idea of digitalising my entire comic book collection. I'm doing this for the following reasons:</p>
+<div class="blog-post__content"><p>Date: 2014-05-13</p>
+<p>I’m so tired of looking for posts about jumping/deleting words and jumping between the beginning and the end of the line in iTerm2, that I’ve decided to write my own post.</p>
+<h3>Word jumping – with option + left/right</h3>
 <ul>
-<li>I want to be able to access all my comics in any way I like, at the best possible quality (I'm looking at you, Comixology), from any device I like. Because they are mine!</li>
-<li>I want to <em>unrust</em> my Android and iOS skills.</li>
-<li>I want to give some use to my Raspberry Pi 3.</li>
-<li>I'm curious about the technical challenge all of this represents.</li>
+<li>Go to iTerm preferences –&gt; "your default profile" –&gt; Keys</li>
+<li>get rid of the lines with the two lines sending escape codes with option + left/right</li>
+<li>Add a couple of lines in iTerm preferences –&gt; Keys (Global Shortcut keys)<ul>
+<li>option + left: Send Escape Sequence, ESC + B</li>
+<li>option + right: Send Escape Sequence, ESC + F</li>
 </ul>
-<h2>Stage 1 - Collect all the comics</h2>
-<p>The first thing I need in order to create a digital comic book library is its content: digital copies of my comic books. Finding most of them online isn't hard, but getting some of them is plainly impossible: I have some Spanish comic books that have never been digitalized, so I've had to find their English versions instead. And no, I won't scan them myself.</p>
-<p>Apart from my physical library, I also have a big number of comics on Comixology: mainly the ones that I don't really mind not having on paper because I don't care too much about them or perhaps because Comixology has had an amazing sale, which unfortunately for my wallet, happens often.</p>
-<p>It has taken me weeks to get to a point where I have almost the same content in both bookshelves, digital and physical.</p>
-<h2>Stage 2 - Put it on the local network</h2>
-<p>For that, I've acquired a NAS that I've connected to my local network. A 2TB WD My Cloud does the job.</p>
-<p><img alt="Imgur" src="https://i.imgur.com/KLdQr5x.jpg"/></p>
-<p>After putting all the digital comics on the network hard drive, a quick test to make sure this will be accessible on my local network, it works!</p>
-<p><img alt="Imgur" src="https://i.imgur.com/Z0HWNnQ.png"/></p>
-<h2>Stage 3 - The apps</h2>
-<p>This has taken longer than the other "stages". I've built 3 different apps to get everything working the way I like:</p>
-<ol>
-<li>A Django app which works as a server for delivering the directories with comics and the individual pages of each comic when reading them. The code can be found <a href="https://github.com/jgasteiz/comic-reader-home">here</a>. I've built the actual "comic reading app" using React, because I wanted a quick way of giving the API a test before writing the native apps and it has turned out to be a very simple solution to the problem of having to write a web comic reader. I'm also using Django Rest Framework for putting together a very simple API to serve individual comic pages.</li>
-<li>An Android app which works as a client and connects to the Django API and lets me read my digital comics. I've recently added "offline" reading, so I can download my comics when I'm at home and read them anywhere I like. It works fairly well, but I want to improve the "downloading" feature - I'm updating the UI too much showing the download progress on the main thread, looking into writing a service for dealing with that. The code can be found <a href="https://github.com/jgasteiz/comic-reader-home-android">here</a>.</li>
-<li>I've also started writing an iOS app, which is almost done now! I can already browse the folders and read a comic, but the reader definitely needs more love. Zooming and page browsing is not there yet. I also need to add the offline mode to this one. The code can be found <a href="https://github.com/jgasteiz/comic-reader-home-ios">here</a>.</li>
-</ol>
-<h2>Stage 4 - Setting up the Raspberry Pi 3</h2>
-<p>Simple, cheap and way more powerful than the Raspberry Pi 2 (which I also have lying around).</p>
-<p>A few details on what I'm running here:</p>
+</li>
+</ul>
+<h3>Word deletion – with option + backspace</h3>
+<p>Add a line in iTerm preferences –&gt; Keys (Global Shortcut keys):</p>
 <ul>
-<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian Stretch Lite</a>.</li>
-<li><a href="https://www.nginx.com/">NGINX</a>.</li>
-<li><a href="https://www.rabbitmq.com/">RabbitMQ</a>.</li>
-<li><a href="http://www.celeryproject.org/">Celery</a>.</li>
-<li><a href="https://github.com/jgasteiz/comic-reader-home">The django app mentioned in Stage 3</a>.</li>
+<li>option + backspace: Send Hex Code, 0x1B 0x08</li>
 </ul>
-<p>The only thing I need to do for this to work is mount the network drive on a local directory and point the <code>comic-reader-home</code> app to that location.</p>
-<p><img alt="Imgur" src="https://i.imgur.com/YL2LHgC.jpg"/></p>
-<p><strong>Now, some screenshots of how the apps look like</strong></p>
-<p>Web reader</p>
-<p><img alt="Imgur" src="https://i.imgur.com/XN7v2d1.png"/></p>
-<p><img alt="Imgur" src="https://i.imgur.com/xuQcSb9.png"/></p>
-<p>Android app</p>
-<p><img alt="Imgur" src="https://i.imgur.com/AovOzXr.jpg"/></p>
-<h2>Final thoughts and moral concerns</h2>
-<p>Unfortunately, in order to get digital copies of some of my comic books I've had to <em>obtain them</em> from dark places on the internet – I'm sorry, but after spending £30 on a heavy and nice hardcover comic book, I'm not going to spend £20 on its digital version. Some others, especially a lot of the Image ones, I've been able to get through amazing sales on <a href="https://www.humblebundle.com/">Humble Bundle</a> (in this case I've actually bought some comics twice) and I've been able to get some others from the Comixology "backup" option they offer on some comics - not on many though.</p>
-<p>Marvel and DC have been doing something pretty cool during the last year or so: when you buy a paper issue, some of them will come with a "code" that will unlock that same comic book on the digital comics platform Comixology. That's great and I hope others like Image, Dark Horse, Dynamite, etc. will start doing the same at some point. I really prefer reading them on paper, but I also enjoy re-reading some of them digitally because the colours look so great on a screen.</p>
-<p>All that said, my conscience is clean because I know I've spent honest money on supporting the artists, editors, distributors and librarians by buying <strong>a lot</strong> of paper comics from many, many comic shops.</p>
-<p>Finally, I didn't want to finish this blog post without actually showing how my actual collection look like: </p>
-<p><img alt="Bookshelves 1" src="https://i.imgur.com/vZdFGB3.jpg"/></p>
-<p><img alt="Bookshelves 2" src="https://i.imgur.com/eWNfKLC.jpg"/></p>
-<p><img alt="Bookshelves 3" src="https://i.imgur.com/E0YydQb.jpg"/></p>
-<p>(Yes, I know it's all a bit chaotic)</p>
-<p>PS: Buy comics. Support the artists, editors, distributors, librarians and everyone who takes part in the process of bringing this great art to you.</p></div>
+<h3>Jump to the beginning/end of a line – with cmd + left/right</h3>
+<p>Add a couple of lines in iTerm preferences –&gt; Keys (Global Shortcut keys):</p>
+<ul>
+<li>cmd + left: Send Hex Code, 0x01</li>
+<li>cmd + right: Send Hex Code, 0x05</li>
+</ul>
+<p>Check the following screenshot for more details:</p>
+<p><img alt="Screen shot" src="https://lh3.googleusercontent.com/-i9gBv_w7PkE/U3IUEQ8mUUI/AAAAAAAAO9U/8oUtFFLcSiI/w922-h539-no/Screen+Shot+2014-05-13+at+13.45.12.png"/></p></div>
 </article><article class="blog-post blog-post--english">
 <div class="blog-post__header">
-<h1 class="blog-post__title"><a href="2017-10-10-yawning-people.html">Yawning People</a></h1>
-<span class="blog-post__date">Tuesday, 10 October 2017</span>
+<h1 class="blog-post__title"><a href="2014-01-22-hendon-cemetery.html">Hendon Cemetery</a></h1>
+<span class="blog-post__date">Wednesday, 22 January 2014</span>
 </div>
-<div class="blog-post__content"><p>Date: 2017-10-10</p>
-<p>I was doing a bucket cleanup in my Amazon S3 console and I've found a bucket with some funny pictures.</p>
-<p><img alt="Maikel-2012-04-29+02.43.10.JPG" src="https://s3-eu-west-1.amazonaws.com/fuzzingtheweb/yawning-people/Maikel-2012-04-29+02.43.10.JPG"/></p>
-<p><img alt="ima-2012-06-10+02.23.55.JPG" src="https://s3-eu-west-1.amazonaws.com/fuzzingtheweb/yawning-people/ima-2012-06-10+02.23.55.JPG"/></p>
-<p><img alt="Javi-2012-04-29+02.43.28.JPG" src="https://s3-eu-west-1.amazonaws.com/fuzzingtheweb/yawning-people/Javi-2012-04-29+02.43.28.JPG"/></p>
-<p><img alt="Zeta-2012-03-10+02.42.33.jpeg" src="https://s3-eu-west-1.amazonaws.com/fuzzingtheweb/yawning-people/Zeta-2012-03-10+02.42.33.jpeg"/></p>
-<p><img alt="Cris-2012-03-18+01.18.59.JPG" src="https://s3-eu-west-1.amazonaws.com/fuzzingtheweb/yawning-people/Cris-2012-03-18+01.18.59.JPG"/></p>
-<p><img alt="Artyom-2012-04-29+02.42.39.JPG" src="https://s3-eu-west-1.amazonaws.com/fuzzingtheweb/yawning-people/Artyom-2012-04-29+02.42.39.JPG"/></p>
-<p><img alt="Arty-2012-07-22+01.44.56.JPG" src="https://s3-eu-west-1.amazonaws.com/fuzzingtheweb/yawning-people/Arty-2012-07-22+01.44.56.JPG"/></p>
-<p><img alt="Oihana-Rachel-2012-06-10+02.21.05.JPG" src="https://s3-eu-west-1.amazonaws.com/fuzzingtheweb/yawning-people/Oihana-Rachel-2012-06-10+02.21.05.JPG"/></p>
-<p>Related:</p>
-<iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/pQ4Xy8VSmvU" width="560"></iframe></div>
+<div class="blog-post__content"><p>Date: 2014-01-22</p>
+<p>A few pictures from this Sunday, when Madga dragged me out of the bed to visit Hendon Cemetery. Not the most common spot to visit on a weekend, but it was close from home and we the weekend laziness was on us.</p>
+<p><img alt="Angel" src="https://farm8.staticflickr.com/7440/12040273675_c50a27d9f9_c.jpg"/><br/>
+<em>This first one was taken by Magda.</em></p>
+<p><img alt="Church" src="https://farm6.staticflickr.com/5490/12040668954_fd4bde62f7_c.jpg"/></p>
+<p><img alt="Windmill" src="https://farm4.staticflickr.com/3670/12040585163_b6ae8fbb3c_c.jpg"/></p>
+<p><img alt="Magda" src="https://farm8.staticflickr.com/7367/12040654343_89385bde19_c.jpg"/></p></div>
 </article><article class="blog-post blog-post--english">
 <div class="blog-post__header">
-<h1 class="blog-post__title"><a href="2017-08-01-this-blog-is-still-alive.html">This blog is still alive</a></h1>
-<span class="blog-post__date">Tuesday, 01 August 2017</span>
+<h1 class="blog-post__title"><a href="2014-01-16-ready-player-one-ernest-cline.html">Ready Player One - Ernest Cline</a></h1>
+<span class="blog-post__date">Thursday, 16 January 2014</span>
 </div>
-<div class="blog-post__content"><p>Date: 2017-08-01</p>
-<p>It's been ten months – minus two days – since the last time I wrote anything here. A lot of stuff has happened in these last 10 months and I'm going to summarise all of it in a list:</p>
-<ul>
-<li>I went to Japan with Magda for my honeymoon. It was amazing, although it would have been even better if I could have understood some Japanese.</li>
-<li>We tried going back to Spain for New Year's Eve, but our flight got cancelled. We made the best of the situation and at least we enjoyed a delicious dinner and a couple of very peaceful days at home.</li>
-<li>I started taking film pictures and developing my own film.</li>
-<li>I spent a few weeks improving my iOS and Android skills. And I had a lot of fun.</li>
-<li>I stopped taking film pictures and developing my own film.</li>
-<li>I went to San Francisco for Google IO 2017. I started playing with Kotlin, the new language announced for Android. I'd love to be able to use it at a professional level. Perhaps one of these days?</li>
-<li>My niece was born! :) She's great, but I won't be posting pictures of her online.</li>
-<li>Magda took me to Brugges for our anniversary. SO. MUCH. BEER. EVERYWHERE. We were incredibly lucky with the weather and I can't stress enough how much I liked Belgium.</li>
-<li>Generally, I've increased the load of comics I read since Christmas. I've caught up with a lot of series I started a few years ago – <em>Y: The Last Man</em>, <em>The Walking Dead</em>, <em>Saga</em> – and I've started following many series. I might write about some of them in the future.</li>
-</ul>
-<p>I'll try to force myself to write at least once or twice a month from now one, at least short posts.</p>
-<p>PS: the reason I've decided to bring this back to life is this morning I got charged $6 by Digital Ocean and I felt bad I wasn't doing anything productive with my server! This is a start.</p></div>
+<div class="blog-post__content"><p>Date: 2014-01-16</p>
+<p>The year is 2044. The Great Recession, the one we have now, is still there and a huge energy crisis has joined it. Real Life™ sucks, but fortunately there is a virtual reality, much better than reality itself, called OASIS. And the access is free.</p>
+<p>One day, the creator of this OASIS dies and leaves a last will: he has hidden 3 keys or <em>Easter Eggs</em> in the OASIS and the one who finds the three of them, will inherit all his fortune and the control of the OASIS.</p>
+<p>After that happens loads of people, gunters from now on - Egg hunters -, will start looking for the keys. The creator of the OASIS was known to be a fanatic of the 80s pop culture and in order to understand the riddles he left behind and find the keys, every gunter will have to become an expert in the matter.</p>
+<p>The book is full of references to videogames, movies, books, comic books, more videogames, tv series and everything you can imagine from the 80s. So everyone who still remembers how the 80s were or even the early 90s, will probably enjoy this book.</p>
+<p><img alt="Ready Player One book cover" src="https://lh3.googleusercontent.com/-YdFbA5XSEOU/UtegebtvQAI/AAAAAAAANqw/hsThl61Q1DA/w829-h649-no/small_background.jpg"/></p></div>
+</article><article class="blog-post blog-post--english">
+<div class="blog-post__header">
+<h1 class="blog-post__title"><a href="2014-01-03-back-for-christmas-turron-style.html">Back for Christmas - Turron style</a></h1>
+<span class="blog-post__date">Friday, 03 January 2014</span>
+</div>
+<div class="blog-post__content"><p>Date: 2014-01-03</p>
+<p>I'm back here since this Monday morning, that's one of the few and vague reasons I haven't written in a few days. That and Christmas excitement. New year's eve has been brutal this year. I can't remember a night as epic as this year's has been, hard to believe. Specially because I don't usually enjoy new year's eve at all.</p>
+<p>I brought the new camera to Spain and I've some time to spend learning the basics about it. After reading some book introductions and blog posts, I've got a common message from all of them: I should try to make tons of pictures. Apparently "learning by doing" is the best way of learning. Good stuff. I've also started uploading some of them to <a href="http://www.flickr.com/photos/jgasteiz/">my flickr account</a>.</p>
+<p><em>A couple of seconds of shutter speed in the darkness of my bedroom made the trick.</em></p>
+<p><img alt="vinyl" src="https://c2.staticflickr.com/4/3822/11719225215_4f406bfc08_b.jpg"/></p>
+<p><em>After reading one of the first chapters of <a href="http://www.ppsop.com/unex.aspx">Understanding Exposure, by Bryan Peterson</a>, I had the feeling of trying something the book explained about playing with values for getting cool exposures. For getting this, I've also changed some stuff in Lightroom.</em></p>
+<p><img alt="from my window" src="https://c1.staticflickr.com/1/775/20043955884_9f7ac9a567_b.jpg"/></p>
+<p>A tripod was used for both pictures, I got a cheap one the other day - I know, I know, none recommends cheap tripods. But I'm definitely not spending a lot on a tripod now, and 12 euros seemed quite reasonable for what I got. Better that than nothing, right?</p>
+<p>And that's all folks.</p></div>
+</article><article class="blog-post blog-post--english">
+<div class="blog-post__header">
+<h1 class="blog-post__title"><a href="2013-12-23-assembler-in-elysium.html">Assembler in Elysium</a></h1>
+<span class="blog-post__date">Monday, 23 December 2013</span>
+</div>
+<div class="blog-post__content"><p>Date: 2013-12-23</p>
+<p>Funny moment when you are watching a science fiction movie and you realise a guy - William Fichtner - who is doing some work on his computer is actually programming assembler. Nice one, but taking into account the story is set in 2154, it seems a bit too much.</p>
+<p><img alt="Assembler" src="https://lh6.googleusercontent.com/-xCswh7tM1T4/Uri3DSUdCVI/AAAAAAAANVU/SlZKwV8_UGE/w543-h693-no/elysium.jpg"/></p>
+<p>I just can't help stopping a movie I'm watching everytime I see a scene in which someone is typing something. I'm always looking forward to finding stuff like this.</p></div>
 </article></div>
 <div class="pagination container" id="pagination">
-<p>Page <span id="page-number">9</span> of <span id="num-pages">15</span></p>
-<p><a class="previous-page" href="page8.html" id="previous-page">Previous page</a><a class="next-page" href="page10.html" id="next-page">Next page</a></p>
+<p>Page <span id="page-number">9</span> of <span id="num-pages">9</span></p>
+<p><a class="previous-page" href="page8.html" id="previous-page">Previous page</a></p>
 </div>
 <footer class="footer" id="footer">
 <div class="container">
