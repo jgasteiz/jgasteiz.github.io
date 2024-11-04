@@ -27,6 +27,64 @@
 </header>
 <div class="container" id="main" role="main"><article class="blog-post blog-post--english">
 <div class="blog-post__header">
+<h1 class="blog-post__title"><a href="2018-03-08-i-ve-built-a-thing.html">I've built a thing</a></h1>
+<span class="blog-post__date">Thursday, 08 March 2018</span>
+</div>
+<div class="blog-post__content"><p>Date: 2018-03-08</p>
+<p>I like reading comics and for the last couple of years I've been reading and collecting a bunch of them – can't wait for the next time I change flats, yay. Because the idea of moving flats terrorises me, I've often thought about moving to digital and stop buying paper comics. But I can't, I really like to feel the physical books on my hands. I suspect that in a few years, when big sized tablets such as the iPad Pro 12" become affordable, I might make a full move to digital. But until then, it's all about paper.</p>
+<p>Something I've realised though is that once I own the physical comic book and I've read it, I don't really mind too much re-reading or looking at it digitally. So a few months ago I came with the idea of digitalising my entire comic book collection. I'm doing this for the following reasons:</p>
+<ul>
+<li>I want to be able to access all my comics in any way I like, at the best possible quality (I'm looking at you, Comixology), from any device I like. Because they are mine!</li>
+<li>I want to <em>unrust</em> my Android and iOS skills.</li>
+<li>I want to give some use to my Raspberry Pi 3.</li>
+<li>I'm curious about the technical challenge all of this represents.</li>
+</ul>
+<h2>Stage 1 - Collect all the comics</h2>
+<p>The first thing I need in order to create a digital comic book library is its content: digital copies of my comic books. Finding most of them online isn't hard, but getting some of them is plainly impossible: I have some Spanish comic books that have never been digitalized, so I've had to find their English versions instead. And no, I won't scan them myself.</p>
+<p>Apart from my physical library, I also have a big number of comics on Comixology: mainly the ones that I don't really mind not having on paper because I don't care too much about them or perhaps because Comixology has had an amazing sale, which unfortunately for my wallet, happens often.</p>
+<p>It has taken me weeks to get to a point where I have almost the same content in both bookshelves, digital and physical.</p>
+<h2>Stage 2 - Put it on the local network</h2>
+<p>For that, I've acquired a NAS that I've connected to my local network. A 2TB WD My Cloud does the job.</p>
+<p><img alt="Imgur" src="https://i.imgur.com/KLdQr5x.jpg"/></p>
+<p>After putting all the digital comics on the network hard drive, a quick test to make sure this will be accessible on my local network, it works!</p>
+<p><img alt="Imgur" src="https://i.imgur.com/Z0HWNnQ.png"/></p>
+<h2>Stage 3 - The apps</h2>
+<p>This has taken longer than the other "stages". I've built 3 different apps to get everything working the way I like:</p>
+<ol>
+<li>A Django app which works as a server for delivering the directories with comics and the individual pages of each comic when reading them. The code can be found <a href="https://github.com/jgasteiz/comic-reader-home">here</a>. I've built the actual "comic reading app" using React, because I wanted a quick way of giving the API a test before writing the native apps and it has turned out to be a very simple solution to the problem of having to write a web comic reader. I'm also using Django Rest Framework for putting together a very simple API to serve individual comic pages.</li>
+<li>An Android app which works as a client and connects to the Django API and lets me read my digital comics. I've recently added "offline" reading, so I can download my comics when I'm at home and read them anywhere I like. It works fairly well, but I want to improve the "downloading" feature - I'm updating the UI too much showing the download progress on the main thread, looking into writing a service for dealing with that. The code can be found <a href="https://github.com/jgasteiz/comic-reader-home-android">here</a>.</li>
+<li>I've also started writing an iOS app, which is almost done now! I can already browse the folders and read a comic, but the reader definitely needs more love. Zooming and page browsing is not there yet. I also need to add the offline mode to this one. The code can be found <a href="https://github.com/jgasteiz/comic-reader-home-ios">here</a>.</li>
+</ol>
+<h2>Stage 4 - Setting up the Raspberry Pi 3</h2>
+<p>Simple, cheap and way more powerful than the Raspberry Pi 2 (which I also have lying around).</p>
+<p>A few details on what I'm running here:</p>
+<ul>
+<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian Stretch Lite</a>.</li>
+<li><a href="https://www.nginx.com/">NGINX</a>.</li>
+<li><a href="https://www.rabbitmq.com/">RabbitMQ</a>.</li>
+<li><a href="http://www.celeryproject.org/">Celery</a>.</li>
+<li><a href="https://github.com/jgasteiz/comic-reader-home">The django app mentioned in Stage 3</a>.</li>
+</ul>
+<p>The only thing I need to do for this to work is mount the network drive on a local directory and point the <code>comic-reader-home</code> app to that location.</p>
+<p><img alt="Imgur" src="https://i.imgur.com/YL2LHgC.jpg"/></p>
+<p><strong>Now, some screenshots of how the apps look like</strong></p>
+<p>Web reader</p>
+<p><img alt="Imgur" src="https://i.imgur.com/XN7v2d1.png"/></p>
+<p><img alt="Imgur" src="https://i.imgur.com/xuQcSb9.png"/></p>
+<p>Android app</p>
+<p><img alt="Imgur" src="https://i.imgur.com/AovOzXr.jpg"/></p>
+<h2>Final thoughts and moral concerns</h2>
+<p>Unfortunately, in order to get digital copies of some of my comic books I've had to <em>obtain them</em> from dark places on the internet – I'm sorry, but after spending £30 on a heavy and nice hardcover comic book, I'm not going to spend £20 on its digital version. Some others, especially a lot of the Image ones, I've been able to get through amazing sales on <a href="https://www.humblebundle.com/">Humble Bundle</a> (in this case I've actually bought some comics twice) and I've been able to get some others from the Comixology "backup" option they offer on some comics - not on many though.</p>
+<p>Marvel and DC have been doing something pretty cool during the last year or so: when you buy a paper issue, some of them will come with a "code" that will unlock that same comic book on the digital comics platform Comixology. That's great and I hope others like Image, Dark Horse, Dynamite, etc. will start doing the same at some point. I really prefer reading them on paper, but I also enjoy re-reading some of them digitally because the colours look so great on a screen.</p>
+<p>All that said, my conscience is clean because I know I've spent honest money on supporting the artists, editors, distributors and librarians by buying <strong>a lot</strong> of paper comics from many, many comic shops.</p>
+<p>Finally, I didn't want to finish this blog post without actually showing how my actual collection look like: </p>
+<p><img alt="Bookshelves 1" src="https://i.imgur.com/vZdFGB3.jpg"/></p>
+<p><img alt="Bookshelves 2" src="https://i.imgur.com/eWNfKLC.jpg"/></p>
+<p><img alt="Bookshelves 3" src="https://i.imgur.com/E0YydQb.jpg"/></p>
+<p>(Yes, I know it's all a bit chaotic)</p>
+<p>PS: Buy comics. Support the artists, editors, distributors, librarians and everyone who takes part in the process of bringing this great art to you.</p></div>
+</article><article class="blog-post blog-post--english">
+<div class="blog-post__header">
 <h1 class="blog-post__title"><a href="2017-10-10-yawning-people.html">Yawning People</a></h1>
 <span class="blog-post__date">Tuesday, 10 October 2017</span>
 </div>
@@ -148,41 +206,9 @@
 <p>The last day we went to a pretty awesome water park, but I obviously left my phone in the lockers and there are no pictures/proof of that.</p>
 <p>To end this post, here's a time-lapse a colleague made watching the sunset in the Teide National Park, at around 2200m.</p>
 <iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/vNZMtyN5Yww" width="560"></iframe></div>
-</article><article class="blog-post blog-post--english">
-<div class="blog-post__header">
-<h1 class="blog-post__title"><a href="2016-09-03-password-managers.html">Password Managers</a></h1>
-<span class="blog-post__date">Saturday, 03 September 2016</span>
-</div>
-<div class="blog-post__content"><p>Date: 2016-09-03</p>
-<h2>The problem</h2>
-<p>For years, I've been the kind of person who always used the same three or four passwords for every single online service I used to have. Every time one of these services <a href="https://haveibeenpwned.com/">got hacked</a>, I was supposed to change the password I was using for that service and in every other service I was using that password. Obviously, I wasn't keeping track of that, so I used to miss many of them.</p>
-<p>Then 2-factor authentication* came to be and I started activating it for every service I considered important: Google, Amazon, Twitter, Facebook, Dropbox, Github, Gitlab... That made me feel much safer. But it had a couple of inconveniences:</p>
-<ol>
-<li>Not every service offers 2-factor authentication and not all of them would offer the SMS one, which is the one I chose.</li>
-<li>I would need my UK phone number with me all the time – this is a problem four or five times per year, when I go to Spain and Poland.</li>
-</ol>
-<blockquote>
-<p>2 Factor Authentication it's an extra layer of security that relies not only on the common user/password combination, but also on something you have with you. Most of the times, it's either an app on your phone generating security codes for the extra login step or this same kind of codes, but sent to you via SMS.</p>
-</blockquote>
-<p>Despite of that, I got used to it and it felt safe enough. At least for the last three years or so.</p>
-<p>Then a few days ago I got another email from Dropbox, saying I need to change my password (again) because <a href="https://blogs.dropbox.com/dropbox/2016/08/resetting-passwords-to-keep-your-files-safe/">millions of account credentials have been leaked (again)</a>. That got me a bit upset, so I finally decided to start looking for a better way of dealing with passwords.</p>
-<h2>The solution</h2>
-<p>I learnt from password managers two or three years ago, when I saw a workmate using one in the office. I didn't remember the name, but I did remember how the icon looked like. It turned out to be <a href="https://1password.com/">1Password</a>. I checked it out and it was offering – still is – a free six month trial period, which should be more than enough time to use it extensively. So I signed up. They also have some cool information explaining <a href="https://1password.com/security/">how it works in the security section</a>.</p>
-<p>I've changed every password in every single online service I've used for the last 5 days and updated every single 2-factor auth code to use the 1Password app rather than my phone - equivalent of using Google Authenticator, for instance.</p>
-<p>I have to say that apart from the pain of changing every password, using this tool feels great. And it definitely makes me feel safer. Now every password I'm using is different: they are long, hard to remember, don't make any sense and combine symbols and numbers. Perfect passwords!</p>
-<p>I will complain about one thing though: using it on a phone or tablet is not a great experience. You need to switch context to grab a particular password and then come back to the login screen to enter it. And if you have 2-factor authentication activated, it will mean an extra change of context – that would be 4 changes to get through a login form. There are a couple of apps that integrate their login forms with 1Password and make the experience much better, but that's still a small number of apps.</p>
-<h2>Summary</h2>
-<p>If you are concerned about your security, get yourself a password manager or a service that will make you create secure passwords.</p>
-<h2>Resources</h2>
-<ul>
-<li><a href="https://1password.com/">1Password</a>: the password manager I'm using.</li>
-<li><a href="https://twistpass.com/">TwistPass</a>: a very cool password generator built by a workmate from <a href="https://p.ota.to">Potato</a>.</li>
-<li><a href="https://lastpass.com/">LastPass</a>: I've heard great things about it.</li>
-<li><a href="https://www.google.com/landing/2step/#tab=how-it-works">Google site explaining 2 factor authentication</a></li>
-</ul></div>
 </article></div>
 <div class="pagination container" id="pagination">
-<p>Page <span id="page-number">6</span> of <span id="num-pages">9</span></p>
+<p>Page <span id="page-number">6</span> of <span id="num-pages">10</span></p>
 <p><a class="previous-page" href="page5.html" id="previous-page">Previous page</a><a class="next-page" href="page7.html" id="next-page">Next page</a></p>
 </div>
 <footer class="footer" id="footer">
